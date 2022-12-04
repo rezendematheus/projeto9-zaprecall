@@ -1,6 +1,8 @@
 import { useState } from "react"
 import styled from 'styled-components'
-import logo from "../assets/img/logo.png"
+import logo from "./assets/img/logo.png"
+import Deck from "./components/Deck"
+import Flashcard from "./components/Flashcard"
 
 const cards = [
 	{ question: "O que é JSX?", answer: "Uma extensão da linguagem JavaScript" },
@@ -15,6 +17,7 @@ const cards = [
 export default function FlashMain(){
     return (
         <ScreenContainer>
+            
             <LogoContainer>
                 <img src={logo} alt="zap logo" />
                 <h1>
@@ -22,12 +25,17 @@ export default function FlashMain(){
                 </h1>
             </LogoContainer>
 
+
+            <Deck cards={cards} />
+            
+
             <Footer>
                 X/Y Concluídos
                 <FooterBotoes>
 
                 </FooterBotoes>
             </Footer>
+
         </ScreenContainer>
     )
 }

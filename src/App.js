@@ -1,4 +1,4 @@
-import FlashMain from './components/FlashMain';
+import FlashMain from './FlashMain';
 
 function App() {
   return (

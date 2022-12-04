@@ -15,6 +15,7 @@ const cards = [
 	{ question: "Usamos estado (state) para __", answer: "Dizer para o React quais informações quando atualizadas devem renderizar a tela novamente" }
 ]
 export default function FlashMain(){
+    const [contador, setContador] = useState(0)
     return (
         <ScreenContainer>
             
@@ -26,11 +27,11 @@ export default function FlashMain(){
             </LogoContainer>
 
 
-            <Deck cards={cards} />
+            <Deck cards={cards} contador={contador} setContador={setContador} />
             
 
             <Footer>
-                X/Y Concluídos
+                {contador}/{cards.length} Concluídos
                 <FooterBotoes>
 
                 </FooterBotoes>

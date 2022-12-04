@@ -2,21 +2,27 @@ import { useState } from 'react'
 import styled from 'styled-components'
 import setavirar from '../assets/img/seta_virar.png'
 import setaplay from '../assets/img/seta_play.png'
+import icone_certo from '../assets/img/icone_certo.png'
+import icone_erro from '../assets/img/icone_erro.png'
+import icone_quase from '../assets/img/icone_quase.png'
 
 const VERDE = "#2FBE34"
 const AMARELO = "#FF922E"
 const VERMELHO = "#FF3030"
-const CINZA = "#333333" 
+const CINZA = "#333333"
 
-export default function Flashcard({ question, answer, index }) {
+
+
+export default function Flashcard({ question, answer, index, contador, setContador }) {
     const [estado, setEstado] = useState("fechada")
-    const [resultado, setResultado] = useState("") // nulo, vazio, metade, inteiro
+    const [resultado, setResultado] = useState("") // '', "erro", "quase", "certo"
+    const [icone, setIcone] = useState(setaplay)
 
     if (estado === "fechada") {
         return (
-            <Fechada>
-                Pergunta {index + 1}
-                <img onClick={() => setEstado("questão")} src={setaplay} alt='seta play' />
+            <Fechada estilo={resultado}>
+                <p>Pergunta {index + 1}</p>
+                <img onClick={!resultado ? (() => setEstado("questão")) : () => { }} src={icone} alt={`seta ${resultado}`} />
             </Fechada>
         )
     }
@@ -33,11 +39,11 @@ export default function Flashcard({ question, answer, index }) {
             <Aberta>
                 {answer}
                 <ContainerBotoes>
-                    <Botao cor={VERMELHO}>Não lembrei</Botao>
-                    <Botao cor={AMARELO}>Quase não lembrei</Botao>
-                    <Botao cor={VERDE}>Zap!</Botao>
+                    <Botao onClick={() => { setEstado("fechada"); setContador(contador + 1); setIcone(icone_erro); setResultado(VERMELHO) }} cor={VERMELHO}>Não lembrei</Botao>
+                    <Botao onClick={() => { setEstado("fechada"); setContador(contador + 1); setIcone(icone_quase); setResultado(AMARELO) }} cor={AMARELO}>Quase não lembrei</Botao>
+                    <Botao onClick={() => { setEstado("fechada"); setContador(contador + 1); setIcone(icone_certo); setResultado(VERDE) }} cor={VERDE}>Zap!</Botao>
                 </ContainerBotoes>
-            </Aberta>   
+            </Aberta>
         )
     }
 }
@@ -59,7 +65,8 @@ const Fechada = styled.li`
         font-weight: 700;
         font-size: 16px;
         line-height: 19px;
-        color: #333333;
+        color: ${props => props.estilo};
+        text-decoration: ${props => props.estilo && "line-through"};
     }
 `
 

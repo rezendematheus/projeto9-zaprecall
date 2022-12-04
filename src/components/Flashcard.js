@@ -39,9 +39,9 @@ export default function Flashcard({ question, answer, index, contador, setContad
             <Aberta>
                 {answer}
                 <ContainerBotoes>
-                    <Botao onClick={() => { setEstado("fechada"); setContador(contador + 1); setIcone(icone_erro); setResultado(VERMELHO) }} cor={VERMELHO}>Não lembrei</Botao>
-                    <Botao onClick={() => { setEstado("fechada"); setContador(contador + 1); setIcone(icone_quase); setResultado(AMARELO) }} cor={AMARELO}>Quase não lembrei</Botao>
-                    <Botao onClick={() => { setEstado("fechada"); setContador(contador + 1); setIcone(icone_certo); setResultado(VERDE) }} cor={VERDE}>Zap!</Botao>
+                    <Botao onClick={() => { setEstado("fechada"); setContador([...contador, icone_erro]); setIcone(icone_erro); setResultado(VERMELHO) }} cor={VERMELHO}>Não lembrei</Botao>
+                    <Botao onClick={() => { setEstado("fechada"); setContador([...contador, icone_quase]); setIcone(icone_quase); setResultado(AMARELO) }} cor={AMARELO}>Quase não lembrei</Botao>
+                    <Botao onClick={() => { setEstado("fechada"); setContador([...contador, icone_certo]); setIcone(icone_certo); setResultado(VERDE) }} cor={VERDE}>Zap!</Botao>
                 </ContainerBotoes>
             </Aberta>
         )
@@ -99,6 +99,7 @@ const ContainerBotoes = styled.div`
     width: 80%;
     justify-content: space-between;
     margin: 20px;
+    padding: 10px;
     gap: 0px 10px;
 
 `

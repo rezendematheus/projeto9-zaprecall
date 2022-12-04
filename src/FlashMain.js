@@ -2,7 +2,10 @@ import { useState } from "react"
 import styled from 'styled-components'
 import logo from "./assets/img/logo.png"
 import Deck from "./components/Deck"
-import Flashcard from "./components/Flashcard"
+import Mensagem from "./components/Mensagem"
+import icone_certo from './assets/img/icone_certo.png'
+import icone_erro from './assets/img/icone_erro.png'
+import icone_quase from './assets/img/icone_quase.png'
 
 const cards = [
 	{ question: "O que é JSX?", answer: "Uma extensão da linguagem JavaScript" },
@@ -15,14 +18,14 @@ const cards = [
 	{ question: "Usamos estado (state) para __", answer: "Dizer para o React quais informações quando atualizadas devem renderizar a tela novamente" }
 ]
 export default function FlashMain(){
-    const [contador, setContador] = useState(0)
+    const [contador, setContador] = useState([])
     return (
         <ScreenContainer>
             
             <LogoContainer>
                 <img src={logo} alt="zap logo" />
                 <h1>
-                    Zaprecall
+                    ZapRecall
                 </h1>
             </LogoContainer>
 
@@ -30,10 +33,13 @@ export default function FlashMain(){
             <Deck cards={cards} contador={contador} setContador={setContador} />
             
 
-            <Footer>
-                {contador}/{cards.length} Concluídos
+            <Footer concluido={contador.length===cards.length}>
+                
+                <Mensagem contador={contador} cardsNumero={cards.length} erro={icone_erro}  />
+                
+                <p>{contador.length}/{cards.length} Concluídos</p>
                 <FooterBotoes>
-
+                    {contador.map(e => <img src={e} alt={`${e} icon`}/>)}
                 </FooterBotoes>
             </Footer>
 
@@ -75,6 +81,7 @@ const LogoContainer = styled.div`
 const Footer = styled.div`
     width: 100%;
     min-height: 50px;
+    max-height:${props => props.concluido ? "" : "60px"};
     background-color: #FFFFFF;
     position: fixed;
     bottom: 0;
@@ -82,16 +89,20 @@ const Footer = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-family: 'Recursive';
-    font-weight: 400;
-    font-size: 18px;
-    color: #333333;
+    gap: 14px 0px;
     padding: 10px;
+    p{
+        font-family: 'Recursive';
+        font-weight: 400;
+        font-size: 18px;
+        color: #333333;
+        margin: 5px;
+    }
 `
 
 const FooterBotoes = styled.div`
     display: flex;
     width: 80%;
-    justify-content: space-between;
-    margin: 20px;
+    justify-content: center;    
+    gap: 0px 5px;
 `

@@ -17,33 +17,58 @@ export default function Flashcard({ question, answer, index, contador, setContad
     const [estado, setEstado] = useState("fechada")
     const [resultado, setResultado] = useState("") // '', "erro", "quase", "certo"
     const [icone, setIcone] = useState(setaplay)
+    const [testIcone, setTest] = useState("")
 
     if (estado === "fechada") {
         return (
-            <Fechada estilo={resultado}>
-                <p>Pergunta {index + 1}</p>
-                <img onClick={!resultado ? (() => setEstado("questão")) : () => { }} src={icone} alt={`seta ${resultado}`} />
-            </Fechada>
+            <div data-test="flashcard">
+                <Fechada estilo={resultado}>
+                    <p data-test="flashcard-text">Pergunta {index + 1}</p>
+                    <img data-test={testIcone} onClick={!resultado ? (() => setEstado("questão")) : () => { }} src={icone} alt={`seta ${resultado}`} />
+                </Fechada>
+            </div>
+
         )
     }
     if (estado === "questão") {
         return (
-            <Aberta>
-                {question}
-                <img onClick={() => setEstado("resposta")} src={setavirar} alt='seta virar' />
-            </Aberta>
+            <div data-test="flashcard">
+                <Aberta>
+                    <div data-test="flashcard-text">{question}</div>
+                    <img data-test="turn-btn" onClick={() => setEstado("resposta")} src={setavirar} alt='seta virar' />
+                </Aberta>
+            </div>
+
         )
     }
     if (estado === "resposta") {
         return (
-            <Aberta>
-                {answer}
-                <ContainerBotoes>
-                    <Botao onClick={() => { setEstado("fechada"); setContador([...contador, icone_erro]); setIcone(icone_erro); setResultado(VERMELHO) }} cor={VERMELHO}>Não lembrei</Botao>
-                    <Botao onClick={() => { setEstado("fechada"); setContador([...contador, icone_quase]); setIcone(icone_quase); setResultado(AMARELO) }} cor={AMARELO}>Quase não lembrei</Botao>
-                    <Botao onClick={() => { setEstado("fechada"); setContador([...contador, icone_certo]); setIcone(icone_certo); setResultado(VERDE) }} cor={VERDE}>Zap!</Botao>
-                </ContainerBotoes>
-            </Aberta>
+            <div data-test="flashcard" >
+                <Aberta>
+                    <span data-test="flashcard-text">{answer}</span>
+                    <ContainerBotoes>
+                        <Botao
+                            data-test="zap-btn"
+                            onClick={() => { setEstado("fechada"); setContador([...contador, icone_erro]); setIcone(icone_erro); setTest("no-icon"); setResultado(VERMELHO) }}
+                            cor={VERMELHO}>
+                            Não lembrei
+                        </Botao>
+                        <Botao
+                            data-test="zap-btn"
+                            onClick={() => { setEstado("fechada"); setContador([...contador, icone_quase]); setIcone(icone_quase); setTest("partial-icon"); setResultado(AMARELO) }}
+                            cor={AMARELO}>
+                            Quase não lembrei
+                        </Botao>
+                        <Botao
+                            data-test="zap-btn"
+                            onClick={() => { setEstado("fechada"); setContador([...contador, icone_certo]); setIcone(icone_certo); setTest("zap-icon"); setResultado(VERDE) }}
+                            cor={VERDE}>
+                            Zap!
+                        </Botao>
+                    </ContainerBotoes>
+                </Aberta>
+            </div>
+
         )
     }
 }

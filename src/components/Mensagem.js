@@ -6,20 +6,26 @@ export default function Mensagem({ contador, cardsNumero, erro }) {
     if (contador.length === cardsNumero) {
         if (!contador.includes(erro)) {
             return (
-                <Modelo>
-                    <div><img src={party} alt='party img' /> Parabéns!</div>
-                    Você não esqueceu de <br />
-                    nenhum Flashcard!
-                </Modelo>
+                <div data-test="finish-test">
+                    <Modelo>
+                        <div><img src={party} alt='party img' /> Parabéns!</div>
+                        Você não esqueceu de <br />
+                        nenhum Flashcard!
+                    </Modelo>
+                </div>
+
             )
         }
         else {
             return (
-                <Modelo>
-                    <div><img src={sad} alt='sad     img' /> Putz...</div>
-                    Ainda faltam mais alguns...<br />
-                    Mas não desanime!
-                </Modelo>
+                <div data-test="finish-test">
+                    <Modelo>
+                        <div><img src={sad} alt='sad     img' /> Putz...</div>
+                        Ainda faltam mais alguns...<br />
+                        Mas não desanime!
+                    </Modelo>
+                </div>
+
             )
         }
     }

@@ -33,8 +33,7 @@ export default function FlashMain(){
             <Deck cards={cards} contador={contador} setContador={setContador} />
             
 
-            <Footer concluido={contador.length===cards.length}>
-                
+            <Footer data-test="footer" concluido={contador.length===cards.length}>
                 <Mensagem contador={contador} cardsNumero={cards.length} erro={icone_erro}  />
                 
                 <p>{contador.length}/{cards.length} Concluídos</p>
